@@ -2,10 +2,12 @@
 const timeEl=document.querySelector("#timer")
 const startBtn=document.querySelector("#start")
 const questionBoxEl=document.querySelector("#question-box")
-const choiceBtn1=document.queryselcetor("#choice1")
-const choiceBtn2=document.queryselcetor("#choice2")
-const choiceBtn3=document.queryselcetor("#choice3")
-const choiceBtn4=document.queryselcetor("#choice4")
+const questionNumberEl=document.querySelector("#questionNumber")
+
+const choiceBtn1=document.querySelector("#choice1")
+const choiceBtn2=document.querySelector("#choice2")
+const choiceBtn3=document.querySelector("#choice3")
+const choiceBtn4=document.querySelector("#choice4")
 
 choiceBtn1.addEventListener("click",selection1)
 choiceBtn2.addEventListener("click",selection2)
@@ -13,18 +15,11 @@ choiceBtn3.addEventListener("click",selection3)
 choiceBtn4.addEventListener("click",selection4)
 
 startBtn.addEventListener("click",startTimer)
-let t=30;
+let t=100;
+let score=0;
+let currentQuestion=0;
 
 const questions=[
-  {
-    question:"Inside which HTML element do we put the Javascript?",
-    option1: "<javacript>",
-    option2: "<script>",
-    option3: "<scripting>",
-    option4: "<js>",
-    correct: 2
-  }
-  ,
   {
     question:"What is the correct Javascript syntax to change the content of the HTML element below?",
     option1: "document.getElementByName('p').innerHTML= 'Hello World!';",
@@ -32,15 +27,6 @@ const questions=[
     option3: "#demo.innerHTML = 'Hello World!';",
     option4: "document.getElement('p').innerHTML = 'Hello World!';",
     correct: 1
-  }
-  ,
-  {
-    question: "Where is the correct place to insert a Javascript?",
-    option1: "The <head> section",
-    option2: "Both the <head> section and the <body> section are correct",
-    option3: "The <body> section",
-    option4: "The footer",
-    correct:2
   }
   ,
   {
@@ -89,89 +75,81 @@ const questions=[
   }
 ]
 
-let questonNum=0;
-let interval;
-function startTimer(){
+  let interval;
+  function startTimer(){
   clearInterval(interval);
-  t=30;
-
-  questionNum=Math.floor(Math.random()*questions.length);
+  t=100;
+  score=0;
+  currentQuestion=0;
 
   //manipulate the question box and options
 
-  questionBoxEl.innerHTML= questions[questionNum].question
-  choiceBtn1.innerHTML=questions[questionNum].option1
-  choiceBtn2.innerHTML=questions[questionNum].option2
-  choiceBtn3.innerHTML=questions[questionNum].option3
-  choiceBtn4.innerHTML=questions[questonNum].option4
-
   interval=setInterval(()=>{
+
 
     t--;
 
-    timeEl.innerHTML=t;
-    if(t<1){
-      alert("Time is up!")
+
+
+
+    //check if we reach
+    if(t<1 || currentQuestion>questions.length-1){
+      alert(score)
       clearInterval(interval);
     }
-    },1000)
-    }
 
-  function selection1(){
-    if(questions[questionNum].correct==2){
-      alert("correct")
-    }else{
-      alert("wrong")
-      clearInterval(interval)
-    }
+    timeEl.innerHTML=questions[currentQuestion].question
+  questionBoxEl.innerHTML=questions[currentQuestion].question
+  choiceBtn1.innerHTML=questions[currentQuestion].option1
+  choiceBtn2.innerHTML=questions[currentQuestion].option2
+  choiceBtn3.innerHTML=questions[currentQuestion].option3
+  choiceBtn4.innerHTML=questions[currentQuestion].option4
+  questionNumberEl.innerHTML=currentQuestion;
+
+  },1000)
   }
-  function selection2(){
-    if(questions[questionNum].correct==1){
-    }else{
-      alert("wrong")
-      clearInterval(interval)
-    }
-  }
-  function selection3(){
-    if(questions[questionNum].correct==2){
-     }else{
-      alert("wrong")
-      clearInterval(interval)
-     }
-    }
-     function selection4(){
-      if(questions[questionNum].correct==2){
-       }else{
-        alert("wrong")
-        clearInterval(interval)
-       }
+
+function selection1(){//run when choosing choice1
+      if(questions[currentQuestion].correct==1){
+        score++;
+      }else{
+        t=t-10
       }
-       function selection5(){
-        if(questions[questionNum].correct==1){
-         }else{
-          alert("wrong")
-          clearInterval(interval)
-         }
-        }
-         function selection6(){
-          if(questions[questionNum].correct==1){
-           }else{
-            alert("wrong")
-            clearInterval(interval)
-           }
-          }
-           function selection7(){
-            if(questions[questionNum].correct==4){
-             }else{
-              alert("wrong")
-              clearInterval(interval)
-             }
-            }
-             function selection8(){
-              if(questions[questionNum].correct==4){
-               }else{
-                alert("wrong")
-                clearInterval(interval)
-               }
-               
-              }
+
+
+    currentQuestion++;
+}
+function selection2(){
+if(questions[currentQuestion].correct==2){
+  score++;
+}else{
+
+
+  t=t-10
+}
+currentQuestion++;
+}
+
+function selection3(){
+  if(questions[currentQuestion].correct==3){
+    score++;
+  }else{
+
+
+    t=t-10;
+  }
+}
+
+
+
+
+function selection4(){
+  if(questions[currentQuestion].correct==4){
+    score++;
+  }else{
+
+
+    t=t-10;
+  }
+  currentQuestion++;
+}
