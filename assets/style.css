@@ -28,7 +28,7 @@ body{
 }
   
 
-question-box{
+#question-box{
   height:150px;
   padding:20px;
    border-radius: 20px;

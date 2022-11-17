@@ -98,7 +98,7 @@ const questions=[
       clearInterval(interval);
     }
 
-    timeEl.innerHTML=questions[currentQuestion].question
+    timeEl.innerHTML=t;
   questionBoxEl.innerHTML=questions[currentQuestion].question
   choiceBtn1.innerHTML=questions[currentQuestion].option1
   choiceBtn2.innerHTML=questions[currentQuestion].option2
